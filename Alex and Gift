@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int func(int n, int k, int c, int c1, int c2, vector<int> &dp){
+    if(k == 1) {
+        return n;
+    }
+    if(k == 2){
+        return c;
+    }
+    if(dp[k] != -1) {return dp[k];}
+    int x = func(n, k - k/2, c, c1, c2, dp);
+    int y = func(n, k/2, c, c1, c2, dp);
+    
+    if(x == n && y == c || x == c && y == n) {return dp[k] = c1;}
+    else if(x == c && y == c) {return dp[k] = c2;}
+    else if(x == n && y == n) {return dp[k] = x + y - 1;}
+    else {return dp[k] = x + y - 1;}
+}
+int main()
+{
+    int n, k, c1 = 0, c2 = 0, c = 0;
+    cin>>n;
+    cin>>k;
+    unordered_map<int, vector<int>> myMap1;
+    unordered_map<int, int> myMap2, myMap3;
+    vector<int> dp(k + 1, -1);
+    for(int i = 1; i <= n; i++){
+        myMap3[i] = n / i;
+    }
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= n; j++){
+            if(j % i == 0){
+                myMap1[i].push_back(j);
+                if(myMap2.find(i) == myMap2.end()) {myMap2[i] = 1;}
+                else
+                myMap2[i]++;
+                c1 += myMap3[j];
+                c++;
+            }
+        }
+         for(int k = 1; k <=n; k++){
+            if(i !=k && i % k == 0){
+                if(myMap2.find(k) == myMap2.end()) {myMap2[k] = 1;}
+                else
+                myMap2[k] += myMap2[i];
+            }
+        }
+    }
+    for(auto i : myMap1){
+        for(int j = 0; j < i.second.size(); j++){
+            c2 += myMap2[i.second[j]];
+        }
+       
+    }
+    cout << func(n, k, c, c1, c2, dp);
+    return 0;
+}
