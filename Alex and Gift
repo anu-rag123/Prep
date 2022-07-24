@@ -32,7 +32,9 @@ int main()
     for(int i = 1; i <= n; i++){
         for(int j = 1; j <= n; j++){
             if(j % i == 0){
+                //Storing Multiples of every element
                 myMap1[i].push_back(j);
+                //Storing number of multiples for i..
                 if(myMap2.find(i) == myMap2.end()) {myMap2[i] = 1;}
                 else
                 myMap2[i]++;
@@ -42,6 +44,7 @@ int main()
         }
          for(int k = 1; k <=n; k++){
             if(i !=k && i % k == 0){
+                //Storing number of multiples for i..
                 if(myMap2.find(k) == myMap2.end()) {myMap2[k] = 1;}
                 else
                 myMap2[k] += myMap2[i];
