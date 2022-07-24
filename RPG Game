@@ -8,7 +8,8 @@ bool compare(pair<int,int> a, pair<int,int> b){
 //DP Solution
 int dynamic(int n, int e, vector<pair<int,int>> p, vector<vector<int>> &dp){
     if(n == 0){
-        return p[0].first <= e;
+        if(e >= p[0].first) {return 1;}
+        else {return 0;}
     }
     if(dp[n][e] != - 1) {return dp[n][e];}
     int pick = 0;
@@ -16,7 +17,7 @@ int dynamic(int n, int e, vector<pair<int,int>> p, vector<vector<int>> &dp){
         pick = 1 + dynamic(n - 1, e + p[n].second, p, dp);
     }
     int not_pick = dynamic(n - 1, e, p, dp);
-    return dp[n][e] = max(pick, not_pick);
+    return  dp[n][e] = max(pick, not_pick);
 }
 
 // Greedy Solution
@@ -49,7 +50,8 @@ int main(){
         myPair.push_back(make_pair(poweri[i], bonusi[i]));
     }
     sort(myPair.begin(), myPair.end(), compare);
-    vector<vector<int>> dp(n, vector<int>(e + 1, -1));
+    //Declare a dp vector of size (n * maximum_experience_points)
+    vector<vector<int>> dp(n, vector<int>(500, -1));
     cout << endl << dynamic(n - 1, e, myPair, dp);
     return 0;
 }
