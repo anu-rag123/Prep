@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int func(int n, vector<int> &earn, vector<int> &cost){
+    int costings = 0, earnings = 0;
+    for(int i = 0; i < n; i++){
+        earnings += earn[i];
+    }
+    for(int i = 0; i < n; i++){
+        costings += cost[i];
+    }
+    if(earnings >= costings) {return 0;}
+    else {return costings - earnings;}
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> earn(n), cost(n);
+    for(int i = 0; i < n; i++){
+        cin>>earn[i];
+    }
+    for(int i = 0; i < n; i++){
+        cin>>cost[i];
+    }
+    cout<<func(n, earn, cost);
+    return 0;
+}
