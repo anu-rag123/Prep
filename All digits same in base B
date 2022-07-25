@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int convert(int m, int base){
+    int r = m % base;
+    m /= base;
+    
+    while(m > 0){
+        if(r != m % base) {return 0;}
+        m /= base;
+    }
+    return 1;
+}
+int main()
+{
+    int m, base = 2;
+    cin>>m;
+    while(convert(m, base) != 1){
+        base++;
+    }
+    cout<<base;
+    return 0;
+}
